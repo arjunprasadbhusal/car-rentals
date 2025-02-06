@@ -14,4 +14,9 @@ public function reviews()
 {
     return $this->belongsTo(review::class);
 }
+public function booking()
+    {
+        return $this->hasMany(bookings::class);
+    }
+
 }

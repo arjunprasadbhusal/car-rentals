@@ -1,6 +1,7 @@
 @extends('layouts.master')
 @section('content')
 <h1 class="text-blue-800 text-4xl text-center font-bold my-20">My Bookmark</h1>
+<a href="{{route('historyindex')}}" class="bg-green-700 text-white px-3 py-2 rounded-lg text-center cursor-pointer">view History</a>
 
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 px-5 md:px-20 py-10">
     <!-- Bookmarks Section -->
@@ -22,6 +23,7 @@
         @endforeach
     </div>
 </div>
+
 
 <!-- Delete Confirmation Modal -->
 <div class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center" id="deletemodal">

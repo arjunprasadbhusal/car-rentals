@@ -1,11 +1,11 @@
-@extends('layouts.app')
-@section('title', 'Bookings')
+@extends('layouts.master')
+@section('title', 'Booking History')
 @section('content')
 
 <div class="container mx-auto mt-10">
     <!-- Title Section -->
     <div class="text-center mb-10">
-        <h1 class="text-6xl font-extrabold text-gray-800">Your Bookings</h1>
+        <h1 class="text-6xl font-extrabold text-gray-800">Your Bookings history</h1>
         <p class="text-lg text-gray-600 mt-2">Manage and track your vehicle bookings with ease.</p>
     </div>
 
@@ -17,7 +17,7 @@
                 <!-- Vehicle Image -->
                 <img src="{{ asset('image/' . $booking->vehicle->photopath) }}" alt="{{ $booking->vehicle->Name }}" class="h-56 w-full object-cover">
                 <div class="absolute top-4 left-4 bg-indigo-500 text-white text-xs font-extrabold py-1.5 px-3 rounded-full shadow-lg">
-                    {{ ucfirst($booking->status) }}
+                    Booked
                 </div>
                 <div class="absolute top-4 right-4 bg-yellow-500 text-gray-900 text-xs font-extrabold py-1.5 px-3 rounded-full shadow-lg">
                     {{ $booking->payment_method }}
@@ -52,32 +52,27 @@
             </div>
 
             <!-- Action Buttons -->
-            <div class="p-2 bg-gray-100">
-    <!-- First Row -->
-    <div class="flex justify-between items-center mb-2">
-        <a href="{{ route('bookings.status', [$booking->id, 'pending']) }}" class="bg-blue-600 text-white text-sm py-2 px-4 rounded-lg shadow hover:bg-blue-700 flex items-center">
-            <i class="ri-time-line mr-2"></i> Pending
-        </a>
-        <a href="{{ route('bookings.status', [$booking->id, 'Book']) }}" class="bg-yellow-600 text-white text-sm py-2 px-4 rounded-lg shadow hover:bg-yellow-700 flex items-center">
-            <i class="ri-check-line mr-2"></i> Booked
-        </a>
-    </div>
-    <!-- Second Row -->
-    <div class="flex justify-between items-center">
-        <a href="{{ route('bookings.status', [$booking->id, 'Cancelled']) }}" class="bg-red-600 text-white text-sm py-2 px-4 rounded-lg shadow hover:bg-red-700 flex items-center">
-            <i class="ri-close-circle-line mr-2"></i> Cancelled
-        </a>
-        <a href="{{ route('bookings.status', [$booking->id, 'Completed']) }}" class="bg-green-600 text-white text-sm py-2 px-4 rounded-lg shadow hover:bg-green-700 flex items-center">
-            <i class="ri-checkbox-circle-line mr-2"></i> Completed
-        </a>
-    </div>
-</div>
+           
 
         </div>
+
+        <div class="mt-5">
+                        @if (\Carbon\Carbon::parse($booking->created_at)->diffInDays(\Carbon\Carbon::now()) <= 2 && $booking->status != 'Cancelled')
+                        <div class="p-1">
+                            <button data-action="{{ route('bookings.cancel', $booking->id) }}" class="cancel-booking-btn w-full bg-red-600 text-white py-2 rounded-md text-lg font-semibold hover:bg-red-700 transition duration-300">
+                                Cancel Booking
+                            </button>
+                        </div>
+                        @else
+                        <div class="p-1">
+                            <button class="w-full bg-gray-500 text-white rounded-md text-lg py-2  font-semibold cursor-not-allowed">
+                                Cancellation Not Allowed
+                            </button>
+                        </div>
+                        @endif
+                    </div>
         @endforeach
     </div>
-
-    
 </div>
 
 @endsection

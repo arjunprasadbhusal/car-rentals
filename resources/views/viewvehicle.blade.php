@@ -84,10 +84,18 @@
 
 
     <!-- Add Review Form -->
-    <div class="mt-12">
-        <h2 class="text-4xl font-extrabold text-gray-900 mb-8 text-center">Add Your Review</h2>
+    
 
         @auth
+        <div class="mt-12">
+       
+        @php
+        $user_id = Auth::user()->id;
+        $count = App\Models\Bookings::where('user_id', $user_id)->where('vehicle_id', $vehicle->id)->count();
+        @endphp
+        @if($count > 0)
+
+        <h2 class="text-4xl font-extrabold text-gray-900 mb-8 text-center">Add Your Review</h2>
         <div class="bg-gradient-to-r from-white to-blue-50 rounded-xl shadow-lg p-8 max-w-3xl mx-auto">
             <form action="{{ route('reviews.store') }}" method="POST" class="space-y-8">
                 @csrf
@@ -126,6 +134,7 @@
         <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-6 rounded-lg max-w-3xl mx-auto">
             <p class="text-center text-lg font-medium">Please <a href="{{ route('login') }}" class="text-blue-600 underline hover:text-blue-800">log in</a> to leave a review.</p>
         </div>
+        @endif
         @endauth
     </div>
     <!-- Related Vehicles -->

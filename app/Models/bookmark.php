@@ -9,6 +9,7 @@ class bookmark extends Model
 {
     use HasFactory;
     protected $guarded=[];
+    
     public function vehicle()
 {
     return $this->belongsTo(vehicle::class);

@@ -4,7 +4,7 @@
 
 <!-- Hero Section -->
 <header class="relative">
-    <img src="{{ asset('2.png') }}" alt="Background" class="w-full h-screen object-cover">
+    <img src="{{ asset('hello.png') }}" alt="Background" class="w-full h-screen object-cover">
     <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
         <div class="text-center text-white px-8 py-4">
             <h1 class="text-5xl font-bold mb-4">
@@ -19,9 +19,12 @@
 <!-- Popular Cars Section -->
 <h1 class="text-blue-800 text-4xl text-center font-extrabold mt-10">Our Cars</h1>
 
-<div class="grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-10 md:px-20 sm:px-10 px-5 py-12">
+<div class="grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-10 md:px-20 sm:px-10 px-5 py-12 ">
+    
     @foreach ($vehicles as $vehicle)
-    <div class="relative rounded-lg shadow-md p-4 bg-white transform hover:scale-105 hover:rotate-1 transition-transform duration-300 hover:shadow-2xl">
+
+    
+    <div class="relative rounded-lg shadow-md p-4  bg-gradient-to-br from-white to-orange-400  transform hover:scale-105 hover:rotate-1 transition-transform duration-300 hover:shadow-2xl">
 
         <!-- Ribbon for Hot Deal or New -->
         @if($vehicle->is_new)
@@ -67,7 +70,7 @@
             <a href="{{route('viewvehicle',$vehicle->id)}}"
                class="relative bg-gradient-to-r from-blue-600 to-purple-500 text-white px-4 py-2 rounded-lg text-sm hover:from-blue-500 hover:to-purple-400 transition group overflow-hidden">
                 <span class="absolute inset-0 bg-white opacity-10 group-hover:opacity-20 transition"></span>
-                View Product
+                View Details
             </a>
         </div>
     </div>

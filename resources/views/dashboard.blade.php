@@ -43,7 +43,36 @@
         <a href="{{route('reviews.index')}}" class="mt-4 block px-4 py-2 bg-yellow-500 text-black font-bold rounded-full hover:bg-yellow-600 text-center transition-all">Manage Reviews</a>
     </div>
 
-    
-    
+ <div>
+  <canvas id="myChart"></canvas>
 </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    
+    const ctx = document.getElementById('myChart');
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: {!! json_encode($allvehicle) !!}, // Updated variable name
+            datasets: [{
+                label: '# of Bookings',
+                data: {!! json_encode($bookings) !!},
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+
+    
 @endsection

@@ -13,7 +13,7 @@
 
     @include('layouts.alert')
     <!-- Top Navbar -->
-    <nav class="flex justify-between items-center px-6 py-3 bg-black text-white">
+    <nav class="flex justify-between items-center px-6 py-3 bg-black text-white sticky top-0 z-50">
         <div class="flex items-center space-x-6">
             <a href="tel:2345678976" class="flex items-center space-x-1">
                 <i class="ri-phone-fill"></i>
@@ -26,7 +26,20 @@
         <div>
             @auth 
             <a href="">Hi, {{ auth()->user()->name }}</a>
-            <a href="{{route('mybookmark')}}" class="p-2">Bookmark</a>
+            <span class="relative">
+                    <a href="{{ route('mybookmark') }}" class="p-2 text-white font-bold"><i class="ri-shopping-bookmark-fill"></i>My
+                        Bookmark</a>
+                        <span class="absolute top-[-8px] right-[-6px] w-5 h-5 text-xs flex items-center justify-center bg-red-600 text-white rounded-full px-0.5">
+                            @auth
+                                @php
+                                    $no_of_items = \App\Models\bookmark::where('user_id',auth()->id())->Count();
+                                @endphp
+                                {{$no_of_items}}
+                                @else
+                                0
+                            @endauth
+                        </span>
+                    </span>
             <form action="{{ route('logout') }}" method="post" class="inline">
                 @csrf 
                 <button type="submit" class="p-2">Logout</button>
@@ -61,6 +74,11 @@
             <input type="search" placeholder="Search" class="p-2 border rounded-lg" name="qry" value="{{request()->qry}}" minlength="2" required>
             <button type="submit" class="p-2 bg-blue-500 text-white rounded-lg">Search</button>
         </form>
+        @auth
+            <a href="{{ route('userprofile.edit') }}" class="block w-10 h-10">
+                <img src="{{ asset('avatar.png') }}" alt="User Avatar" class="w-10 h-10 rounded-full shadow-lg">
+            </a>
+            @endauth
     </nav>
 
     <!-- Mobile Menu -->

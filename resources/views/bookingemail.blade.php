@@ -14,7 +14,7 @@
         <h3 style="color: #333; font-size: 18px; margin-bottom: 10px;">Order Details:</h3>
         <p style="font-size: 16px; color: #555; line-height: 1.6;">
             <strong>Package Name:</strong> {{ $vehicles->Name }} <br>
-            <strong>Total Price:</strong> ${{ booking->Price_Per_Day }} <br>
+            <strong>Total Price:</strong> ${{ $booking->Price_Per_Day }} <br>
             <strong>Payment Method:</strong> {{ $booking->payment_method }}
         </p>
 

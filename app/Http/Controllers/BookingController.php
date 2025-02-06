@@ -6,16 +6,19 @@ use App\Models\Bookings;
 use App\Models\Bookmark;
 use App\Models\User;
 use App\Models\Vehicle;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class BookingController extends Controller
 {
     public function store(Request $request)
     {
+
         // Validate input
         $data = $request->validate([
-            'vehicle_id' => 'required|exists:vehicles,id',
+            'vehicle_id' => 'required',
             'pickup_date' => 'required|date|after_or_equal:today',
             'return_date' => 'required|date|after:pickup_date',
             'customer_email' => 'required|email',
@@ -23,12 +26,17 @@ class BookingController extends Controller
             'name' => 'required|string|max:255',
             'phone' => 'required|string|max:15',
             'address' => 'required|string|max:255',
-            'days' => 'required|integer|max:15',
-            'price_per_day' => 'required|integer|max:15',
-            
+         
+  
 
-        ]);
-    
+        ]);  
+        //$data['days'] = ----- ;
+
+        $vehicle = Vehicle::find($data['vehicle_id']);
+        $data['Price_Per_Day'] = $request->ppd;
+        
+       
+      
         // Check for conflicting bookings
         $conflictingBooking = Bookings::where('vehicle_id', $data['vehicle_id'])
             ->where(function ($query) use ($data) {
@@ -42,7 +50,9 @@ class BookingController extends Controller
             ->exists();
     
         if ($conflictingBooking) {
-            return back()->with('error', 'This vehicle is already booked for the selected dates.');
+           //disable already booked dates
+            return back()->with('error', 'The vehicle is already booked for the selected dates.');
+
         }
     
         // Create the booking
@@ -51,8 +61,7 @@ class BookingController extends Controller
         // Additional data to be stored in the Bookings
         $data['payment_method'] = "COD";
         $data['user_id'] = auth()->user()->id;
-        $data['status'] = 'avaiable';
-        $data['total'] = $request->Price_Per_Day * $data['days'];
+        $data['status'] = 'pending';
         // Create the Bookings
         Bookings::create($data);
 
@@ -61,16 +70,14 @@ class BookingController extends Controller
             ->where('vehicle_id', $data['vehicle_id'])
             ->delete();
 
+            
         return redirect('/')->with('success', 'Booking has been placed successfully.');
     }
-
-
-    
 
     public function index()
     {
         $bookings = Bookings::all();
-        dd($bookings);
+
         return view('bookings.index', compact('bookings'));
         
     }
@@ -128,7 +135,7 @@ class BookingController extends Controller
             $booking->pickup_date = 'N/A';
             $booking->return_date = 'N/A';
             $booking->user_id = auth()->user()->id;
-            $booking->status = "available";
+            $booking->status = "pending";
             $booking->save();
 
             $bookmark->delete();
@@ -147,4 +154,53 @@ class BookingController extends Controller
 
         return back()->with('error', 'eSewa payment failed.');
     }
+
+    public function userHistory()
+    {
+        $user = Auth::user(); // Get the authenticated user
+        $bookings = Bookings::where('user_id', $user->id)->with('vehicle')->get(); // Fetch orders for the user
+
+        return view('userhistory', compact('bookings')); // Pass orders to the view
+
+    }
+
+    public function cancel($bookingid)
+    {
+        // Retrieve the Bookings by its ID
+        $Bookings = Bookings::findOrFail($bookingid);
+
+        // Check if the Bookings belongs to the authenticated user
+        if ($Bookings->user_id != auth()->user()->id) {
+            return redirect()->route('historyindex')->with('error', 'You are not authorized to cancel this booking.');
+        }
+
+        // Check if the cancellation is within 2 days of booking
+        $bookingDate = Carbon::parse($Bookings->created_at);
+        $currentDate = Carbon::now();
+        $diffInDays = $bookingDate->diffInDays($currentDate);
+
+        if ($diffInDays <= 2) {
+            // Send cancellation email before deleting the Bookings
+            $emaildata = [
+                'name' => $Bookings->user->name,
+                'status' => 'Cancelled',
+                'Bookings' => $Bookings,
+                'vehicle' => $Bookings->vehicle,
+                'payment_method' => $Bookings->payment_method,
+            ];
+
+            Mail::send('emails.cancelorderemail', $emaildata, function ($message) use ($Bookings) {
+                $message->to($Bookings->user->email, $Bookings->user->name)
+                    ->subject('Booking Cancellation');
+            });
+
+            // Delete the Bookings from the orders table
+            $Bookings->delete();
+
+            return redirect()->route('historyindex')->with('success', 'Your booking has been cancelled.');
+        } else {
+            return redirect()->route('historyindex')->with('error', 'You can only cancel the booking within 6 days of placing the Bookings.');
+        }
+    }
+    
 }

@@ -29,7 +29,7 @@
                 <p class="text-lg text-gray-600 mt-2">days: {{ $bookmark->days }}</p>
                 <p class="text-lg text-gray-800 font-semibold mt-2">Total: ${{ number_format($bookmark->vehicle->Price_Per_Day * $bookmark->days, 2) }}</p>
 
-                <input type="hidden" name="product_id" value="{{$bookmark->product_id}}">
+                <input type="hidden" name="vehicle_id" value="{{$bookmark->vehicle_id}}">
                 <input type="hidden" name="days" value="{{$bookmark->days}}">
                 <input type="hidden" name="Price_Per_Day" value="{{$bookmark->vehicle->Price_Per_Day}}">
                 <input type="hidden" name="bookmark_id" value="{{$bookmark->id}}">
@@ -110,35 +110,51 @@
        
     </div>
 
-    <form action="{{ route('bookings.store') }}" method="POST" >
-    @csrf 
+    <form action="{{ route('bookings.store') }}" method="POST"  >
+             @csrf 
+
+             <!-- Hidden Fields -->
+                <input type="hidden" name="vehicle_id" value="{{ $bookmark->vehicle_id }}">
+                <input type="hidden" name="Price_Per_Day" value="{{ $bookmark->vehicle->Price_Per_Day * ($bookmark->days ?? 1) }}">
+                <input type="hidden" name="bookmark_id" value="{{ $bookmark->id }}">
+                <input type="hidden" name="days" value="{{ $bookmark->days ?? 1 }}">
+
            <!-- Shipping Information -->
             <div class="col-span-2 shadow-lg border rounded-lg bg-white p-2 md:m-5 w-80">
                 <h3 class="text-2xl font-semibold text-gray-800 mb-5">Booking Information</h3>
+
                 <label for="Name">Name</label>
                 <input type="text" placeholder="Name" name="name" value="{{ auth()->user()->name }}" class="w-full border rounded-lg p-3 mb-3">
 
                 <label for="Address">Address</label>
-                <input type="text" placeholder="Address" name="address" class="w-full border rounded-lg p-3 mb-3">
+                <input type="text" placeholder="Address" name="address" value="{{ auth()->user()->address }}" class="w-full border rounded-lg p-3 mb-3">
 
                 <label for="Phone">Phone</label>
-                <input type="text" placeholder="Phone" name="phone" class="w-full border rounded-lg p-3 mb-3">
+                <input type="text" placeholder="Phone" name="phone" value="{{ auth()->user()->phone }}" class="w-full border rounded-lg p-3 mb-3">
 
                 <label for="Name">pickup date:</label>
-                <input type="date" placeholder="pickup_date" id="pickup_date" name="pickup_date" class="w-full border rounded-lg p-3 mb-3 required:">
+                <input type="date" placeholder="pickup_date" onchange="pickup(this.value)" id="pickup_date" name="pickup_date" class="w-full border rounded-lg p-3 mb-3 required:">
 
+                <script>
+                    function pickup(value){
+                        var date = new Date(value);
+                        var return_date = new Date(date);
+                        var dayss = {{$bookmark->days}};
+                        return_date.setDate(date.getDate() + dayss);
+                        document.getElementById('return_date').setAttribute('max' ,return_date.toISOString().split('T')[0]);
+                        document.getElementById('return_date').value = return_date.toISOString().split('T')[0];
+                       
+
+                        
+                    }
+                </script>
 
                 <label for="Name">Return date</label>
                 <input type="date" placeholder="Return_date" id="return_date" name="return_date" class="w-full border rounded-lg p-3 mb-3 required:">
 
-                <label for="Name">days</label>
-                <input type="number" placeholder="days" id="days" name="days" class="w-full border rounded-lg p-3 mb-3 ">
-
                 <label for="Name">Email</label>
-                <input type="email" placeholder="Customer_email" name="customer_email" class="w-full border rounded-lg p-3 mb-3">
-
-                <label for="Name">Price_Per_Day</label>
-                <input type="number" placeholder="Price_Per_Day" name="Price_Per_Day" class="w-full border rounded-lg p-3 mb-3">
+                <input type="email" placeholder="Customer_email" name="customer_email" value="{{ auth()->user()->email }}" class="w-full border rounded-lg p-3 mb-3">
+                <input type="hidden" name="ppd" value="{{$bookmark->vehicle->Price_Per_Day}}">
 
                 <h2 class="text-xl font-semibold text-gray-800">Total: ${{  number_format($bookmark->vehicle->Price_Per_Day*$bookmark->days, 2 )}}</h2>
                 <select name="payment_method" class="w-full border rounded-lg p-3 mt-5">
@@ -152,7 +168,7 @@
     </form>
 </div>
     <!-- eSewa Form -->
-    <form action="https://rc-epay.esewa.com.np/api/epay/main/v2/form" method="POST" >
+    <form action="https://rc-epay.esewa.com.np/api/epay/main/v2/form" method="POST"   >
         <input type="hidden" id="amount" name="amount" value="100" required>
         <input type="hidden" id="tax_amount" name="tax_amount" value="0" required>
         <input type="hidden" id="total_amount" name="total_amount" value="100" required>

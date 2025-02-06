@@ -8,34 +8,34 @@ use Illuminate\Http\Request;
 
 class VehicleController extends Controller
 {
-  public function index()
-  {
-      // Fetch all vehicles
-      $vehicles = Vehicle::all();
-  
-      // Apply bubble sort to sort by Price_Per_Day
-      $vehicles = $this->bubbleSort($vehicles);
-  
-      return view('vehicle.index', compact('vehicles'));
-  }
-  
-  private function bubbleSort($vehicles)
-  {
-      $n = count($vehicles);
-      for ($i = 0; $i < $n; $i++) {
-          for ($j = 0; $j < $n - $i - 1; $j++) {
-              // Bubble sort based on Price_Per_Day (you can change this to any other attribute)
-              if ($vehicles[$j]->Price_Per_Day > $vehicles[$j + 1]->Price_Per_Day) {
-                  // Swap the vehicles
-                  $temp = $vehicles[$j];
-                  $vehicles[$j] = $vehicles[$j + 1];
-                  $vehicles[$j + 1] = $temp;
-              }
-          }
-      }
-      return $vehicles;
-  }
-  
+ public function index()
+{
+    // Fetch all vehicles
+    $vehicles = Vehicle::all();
+
+    // Apply bubble sort to sort by Price_Per_Day
+    $vehicles = $this->bubbleSort($vehicles);
+
+    return view('vehicle.index', compact('vehicles'));
+}
+
+private function bubbleSort($vehicles)
+{
+    $n = count($vehicles);
+    for ($i = 0; $i < $n; $i++) {
+        for ($j = 0; $j < $n - $i - 1; $j++) {
+            // Bubble sort based on Price_Per_Day (you can change this to any other attribute)
+            if ($vehicles[$j]->Price_Per_Day > $vehicles[$j + 1]->Price_Per_Day) {
+                // Swap the vehicles
+                $temp = $vehicles[$j];
+                $vehicles[$j] = $vehicles[$j + 1];
+                $vehicles[$j + 1] = $temp;
+            }
+        }
+    }
+    return $vehicles;
+}
+
     public function create()
     {
          return view('vehicle.create');
