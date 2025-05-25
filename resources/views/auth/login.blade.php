@@ -8,10 +8,10 @@
 </head>
 <body>
 <header class="relative h-screen bg-cover bg-center">
-    <img src="th.jpg" alt="Header Image" class="absolute inset-0 w-full h-full object-cover z-0">
+    <img src="hii.png.png" alt="Header Image" class="absolute inset-0 w-full h-full object-cover z-0">
     <div class="absolute inset-0 bg-black opacity-50"></div>
     <div class="relative container mx-auto h-full flex flex-col justify-center items-center text-center text-black">
-    <h1 class="text-4xl font-bold text-black">Login</h1>
+    <h1 class="text-4xl font-bold text-blue-500">Login</h1>
                 <form action="{{route('login')}}" method="POST" class="mt-5 bg-blue-400 opactiy-50 px-4 py-4 rounded-lg ">
                     @csrf
                     <input type="email" name="email" placeholder="Email"

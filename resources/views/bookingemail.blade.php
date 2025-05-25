@@ -13,22 +13,22 @@
 
         <h3 style="color: #333; font-size: 18px; margin-bottom: 10px;">Order Details:</h3>
         <p style="font-size: 16px; color: #555; line-height: 1.6;">
-            <strong>Package Name:</strong> {{ $vehicles->Name }} <br>
+            <strong>vehicle Name:</strong> {{ $vehicles->Name }} <br>
             <strong>Total Price:</strong> ${{ $booking->Price_Per_Day }} <br>
             <strong>Payment Method:</strong> {{ $booking->payment_method }}
         </p>
 
         <hr style="border: 0; border-top: 1px solid #ddd; margin: 20px 0;">
 
-        <p style="font-size: 16px; color: #666; line-height: 1.6;">If you have any questions, feel free to contact our support team at <a href="mailto:support@yatrasathi.com" style="color: #2c7bf7; text-decoration: none;">support@yatrasathi.com</a>.</p>
+        <p style="font-size: 16px; color: #666; line-height: 1.6;">If you have any questions, feel free to contact our support team at <a href="mailto:support@yatrasathi.com" style="color: #2c7bf7; text-decoration: none;">support@renty.com</a>.</p>
 
         <div style="text-align: center; margin-top: 30px;">
-            <a href="{{ route('home') }}" style="background-color: #2c7bf7; color: #fff; padding: 10px 20px; font-size: 16px; border-radius: 5px; text-decoration: none;">Explore More Packages</a>
+            <a href="{{ route('home') }}" style="background-color: #2c7bf7; color: #fff; padding: 10px 20px; font-size: 16px; border-radius: 5px; text-decoration: none;">Explore More </a>
         </div>
     </div>
 
     <footer style="text-align: center; margin-top: 20px; font-size: 14px; color: #888;">
-        <p>© 2024 YatraSathi. All rights reserved.</p>
+        <p>© 2024 Renty. All rights reserved.</p>
         <p>Follow us: <a href="https://twitter.com/yatrasathi" style="color: #2c7bf7; text-decoration: none;">Twitter</a> | <a href="https://facebook.com/yatrasathi" style="color: #2c7bf7; text-decoration: none;">Facebook</a></p>
     </footer>
 </div>

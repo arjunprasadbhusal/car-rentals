@@ -86,9 +86,9 @@
             <div class="bg-gray-50 p-6 rounded-lg shadow-lg">
                 <p class="text-gray-700 italic mb-4">"Excellent service! The car was in perfect condition."</p>
                 <div class="flex items-center">
-                    <img src="{{ asset('th(1).jpg') }}" alt="Customer" class="w-12 h-12 rounded-full mr-4">
+                    <img src="{{ asset('2.png') }}" alt="Customer" class="w-12 h-12 rounded-full mr-4">
                     <div>
-                        <h4 class="text-lg font-bold">John Doe</h4>
+                        <h4 class="text-lg font-bold">Tiwari pratik</h4>
                         <p class="text-gray-600">Location</p>
                     </div>
                 </div>
@@ -98,7 +98,7 @@
                 <div class="flex items-center">
                     <img src="{{ asset('2.png') }}" alt="Customer" class="w-12 h-12 rounded-full mr-4">
                     <div>
-                        <h4 class="text-lg font-bold">Jane Smith</h4>
+                        <h4 class="text-lg font-bold">Pradip khanal</h4>
                         <p class="text-gray-600">Location</p>
                     </div>
                 </div>
@@ -108,7 +108,7 @@
                 <div class="flex items-center">
                     <img src="{{ asset('1.png') }}" alt="Customer" class="w-12 h-12 rounded-full mr-4">
                     <div>
-                        <h4 class="text-lg font-bold">Alice Brown</h4>
+                        <h4 class="text-lg font-bold">prabesh acharya</h4>
                         <p class="text-gray-600">Location</p>
                     </div>
                 </div>

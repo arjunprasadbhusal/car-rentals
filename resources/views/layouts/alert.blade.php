@@ -1,11 +1,25 @@
-@if(session('success'))
-    <div class="bg-green-500 text-white p-4">
-        {{ session('success') }}
-    </div>
+@if (session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: '{{ session('success') }}',
+            showConfirmButton: false,
+            timer: 3000
+        });
+    </script>
 @endif
 
-@if(session('error'))
-    <div class="bg-red-500 text-white p-4">
-        {{ session('error') }}
-    </div>
+@if (session('error'))
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: '{{ session('error') }}',
+            showConfirmButton: false,
+            timer: 3000
+        });
+    </script>
 @endif
+
+

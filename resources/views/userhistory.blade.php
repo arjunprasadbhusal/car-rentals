@@ -5,7 +5,7 @@
 <div class="container mx-auto mt-10">
     <!-- Title Section -->
     <div class="text-center mb-10">
-        <h1 class="text-6xl font-extrabold text-gray-800">Your Bookings history</h1>
+        <h1 class="text-6xl font-extrabold text-gray-800">Your Bookings History</h1>
         <p class="text-lg text-gray-600 mt-2">Manage and track your vehicle bookings with ease.</p>
     </div>
 
@@ -52,27 +52,52 @@
             </div>
 
             <!-- Action Buttons -->
-           
-
+            <div class="p-4">
+                @if (\Carbon\Carbon::parse($booking->created_at)->diffInDays(\Carbon\Carbon::now()) <= 2 && $booking->status != 'Cancelled')
+                    <button data-action="{{ route('bookings.cancel', $booking->id) }}" class="cancel-booking-btn w-full bg-red-600 text-white py-2 rounded-md text-lg font-semibold hover:bg-red-700 transition duration-300">
+                        Cancel Booking
+                    </button>
+                @else
+                    <button class="w-full bg-gray-500 text-white rounded-md text-lg py-2 font-semibold cursor-not-allowed">
+                        Cancellation Not Allowed
+                    </button>
+                @endif
+            </div>
         </div>
-
-        <div class="mt-5">
-                        @if (\Carbon\Carbon::parse($booking->created_at)->diffInDays(\Carbon\Carbon::now()) <= 2 && $booking->status != 'Cancelled')
-                        <div class="p-1">
-                            <button data-action="{{ route('bookings.cancel', $booking->id) }}" class="cancel-booking-btn w-full bg-red-600 text-white py-2 rounded-md text-lg font-semibold hover:bg-red-700 transition duration-300">
-                                Cancel Booking
-                            </button>
-                        </div>
-                        @else
-                        <div class="p-1">
-                            <button class="w-full bg-gray-500 text-white rounded-md text-lg py-2  font-semibold cursor-not-allowed">
-                                Cancellation Not Allowed
-                            </button>
-                        </div>
-                        @endif
-                    </div>
         @endforeach
     </div>
 </div>
+
+<!-- JavaScript for handling cancellation -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".cancel-booking-btn").forEach(button => {
+            button.addEventListener("click", function () {
+                let actionUrl = this.getAttribute("data-action");
+
+                if (confirm("Are you sure you want to cancel this booking?")) {
+                    fetch(actionUrl, {
+                        method: "POST",
+                        headers: {
+                            "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({})
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert("Booking cancelled successfully.");
+                            location.reload();
+                        } else {
+                            alert("Failed to cancel booking.");
+                        }
+                    })
+                    .catch(error => console.error("Error:", error));
+                }
+            });
+        });
+    });
+</script>
 
 @endsection

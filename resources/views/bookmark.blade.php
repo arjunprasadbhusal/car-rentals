@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('content')
 <h1 class="text-blue-800 text-4xl text-center font-bold my-20">My Bookmark</h1>
-<a href="{{route('historyindex')}}" class="bg-green-700 text-white px-3 py-2 rounded-lg text-center cursor-pointer">view History</a>
+<h1 class="text-blue-800 text-2xl text-center font-bold my-20">"Check your booking history before making a new booking."</h1><a href="{{route('historyindex')}}" class="bg-green-700 text-white px-3 py-2 rounded-lg text-center cursor-pointer">view History</a>
 
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 px-5 md:px-20 py-10">
     <!-- Bookmarks Section -->
@@ -53,4 +53,4 @@
         document.getElementById('deletemodal').classList.remove('hidden');
     }
 </script>
-@endsection
+@endsection 

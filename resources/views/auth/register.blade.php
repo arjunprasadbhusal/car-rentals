@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register | Retrokits Nepal</title>
+    <title>Register | Rently</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
@@ -22,7 +22,7 @@
             <div class="bg-white bg-opacity-30 backdrop-blur-lg rounded-lg shadow-md p-6 w-full max-w-4xl text-gray-900">
                 <!-- Title -->
                 <h2 class="text-2xl font-extrabold text-center text-white mb-4">
-                    <i class="ri-user-add-line"></i> Register to <span class="text-red-600">Retrokits Nepal</span>
+                    <i class="ri-user-add-line"></i> Register to <span class="text-red-600">Rently</span>
                 </h2>
 
                 <!-- Registration Form -->

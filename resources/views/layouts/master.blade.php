@@ -5,7 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
-    <title>Rentaly</title>
+    <!-- SweetAlert2 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOM8d7xj1z5l5e5c5e5c5e5c5e5c5e5c5e5c5e" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOM8d7xj1z5l5e5c5e5e5c5e5c5e5c5e5c5e" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOM8d7xj1z5l5e5c5e5e5c5e5c5e5c5e5c5e" crossorigin="anonymous" />
+    <title>Rently</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -54,7 +62,7 @@
     <nav class="flex justify-between items-center px-6 py-4 bg-white shadow-md sticky top-0 z-50">
         <div class="flex items-center">
             <img src="{{ asset('1.png') }}" alt="Logo" class="h-12">
-            <span class="ml-3 text-xl font-bold text-gray-800">Rentaly</span>
+            <span class="ml-3 text-xl font-bold text-gray-800">Rently</span>
         </div>
         <div class="hidden md:flex items-center space-x-6">
             <a href="{{ route('home') }}" class="hover:text-gray-600 transition">Home</a>

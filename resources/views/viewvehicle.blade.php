@@ -28,7 +28,7 @@
                     <button type="button" 
                             class="py-2 bg-blue-600 text-white px-4 text-xl rounded hover:bg-blue-700" 
                             onclick="increaseqty()">+</button>
-                    <p class="text-gray-500 mt-1">In days:<span id="day">unlimited</span></p>
+                    <p class="text-gray-500 mt-1">In days</p>
 
                 </div>
                
@@ -38,13 +38,6 @@
                     Bookmark
                 </button>
             </form>
-
-            <!-- Delivery Info -->
-            <div class="mt-8 space-y-2">
-                <p><span class="font-bold text-green-600">✔</span> Free delivery</p>
-                <p><span class="font-bold text-green-600">✔</span> Delivery in 2-3 days</p>
-                <p><span class="font-bold text-green-600">✔</span> 7-day return policy</p>
-            </div>
         </div>
     </div>
 

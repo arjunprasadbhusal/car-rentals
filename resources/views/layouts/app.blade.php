@@ -18,6 +18,12 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
 </head>
 
 <body class="font-sans antialiased bg-gray-100">
@@ -30,7 +36,7 @@
                 <img src="1.png" alt="Logo" class="w-8/12 mx-auto bg-white p-2 rounded-full shadow-lg">
                 <h2 class="text-xl font-bold mt-4">Arjun Bhusal</h2>
             </div>
-            <nav class="mt-8">
+            <nav class="mt-">
                 <a href="{{route('dashboard')}}" class="block p-3 hover:bg-blue-700 rounded text-white">
                     <i class="ri-dashboard-line"></i> Dashboard
                 </a>
@@ -52,7 +58,7 @@
                 <i class="ri-star-line "></i> reviews
                 </a>
                 <!-- Logout -->
-                <form action="{{ route('logout') }}" method="POST" class="mt-4">
+                <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button type="submit" class="block w-full p-3 text-left hover:bg-blue-700 rounded text-white">
                         <i class="ri-logout-box-line"></i> Logout
@@ -65,7 +71,7 @@
         <div class="p-6 flex-1 bg-white">
             <h1 class="text-3xl font-bold text-blue-800">@yield('title')</h1>
             <hr class="border-blue-500 my-4">
-            <div class="bg-gray-50 p-6 rounded-lg shadow">
+            <div class="bg-gray-50 p-2 rounded-lg shadow">
                 @yield('content')
             </div>
         </div>

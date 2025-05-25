@@ -111,6 +111,7 @@ class BookingController extends Controller
 
     public function storeEsewa(Request $request, $bookmarkid)
     {
+        // Validate the request
         $data = $request->data;
         $data = base64_decode($data);
         $data = json_decode($data);
