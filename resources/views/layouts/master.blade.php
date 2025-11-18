@@ -91,7 +91,7 @@
                 </div>
             </div>
             <div class="flex items-center space-x-4">
-                @auth 
+                @auth
                 <span class="flex items-center gap-2">
                     <i class="ri-user-smile-fill"></i>
                     <span class="font-semibold">Hi, {{ auth()->user()->name }}</span>
@@ -143,10 +143,10 @@
                 
                 <!-- Desktop Navigation -->
                 <div class="hidden lg:flex items-center space-x-8">
-                    <a href="{{ route('home') }}" class="nav-link text-gray-700 hover:text-blue-600 font-semibold text-base">Home</a>
-                    <a href="{{ route('Cars') }}" class="nav-link text-gray-700 hover:text-blue-600 font-semibold text-base">Cars</a>
-                    <a href="{{ route('About') }}" class="nav-link text-gray-700 hover:text-blue-600 font-semibold text-base">About Us</a>
-                    <a href="{{ route('Contact') }}" class="nav-link text-gray-700 hover:text-blue-600 font-semibold text-base">Contact</a>
+                    <a href="{{ route('home') }}" class="nav-link {{ request()->routeIs('home') ? 'active text-blue-600' : 'text-gray-700' }} hover:text-blue-600 font-semibold text-base">Home</a>
+                    <a href="{{ route('Cars') }}" class="nav-link {{ request()->routeIs('Cars') ? 'active text-blue-600' : 'text-gray-700' }} hover:text-blue-600 font-semibold text-base">Cars</a>
+                    <a href="{{ route('About') }}" class="nav-link {{ request()->routeIs('About') ? 'active text-blue-600' : 'text-gray-700' }} hover:text-blue-600 font-semibold text-base">About Us</a>
+                    <a href="{{ route('Contact') }}" class="nav-link {{ request()->routeIs('Contact') ? 'active text-blue-600' : 'text-gray-700' }} hover:text-blue-600 font-semibold text-base">Contact</a>
                 </div>
                 
                 <!-- Search & Profile -->
@@ -185,19 +185,19 @@
     <!-- Mobile Menu -->
     <div id="mobile-menu" class="hidden lg:hidden bg-white shadow-xl border-t border-gray-200 animate-slideDown">
         <div class="container mx-auto px-6 py-6 space-y-4">
-            <a href="{{ route('home') }}" class="flex items-center gap-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 p-3 rounded-lg transition font-semibold">
+            <a href="{{ route('home') }}" class="flex items-center gap-3 {{ request()->routeIs('home') ? 'text-blue-600 bg-blue-50' : 'text-gray-700' }} hover:text-blue-600 hover:bg-blue-50 p-3 rounded-lg transition font-semibold">
                 <i class="ri-home-4-line text-xl"></i>
                 <span>Home</span>
             </a>
-            <a href="{{ route('Cars') }}" class="flex items-center gap-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 p-3 rounded-lg transition font-semibold">
+            <a href="{{ route('Cars') }}" class="flex items-center gap-3 {{ request()->routeIs('Cars') ? 'text-blue-600 bg-blue-50' : 'text-gray-700' }} hover:text-blue-600 hover:bg-blue-50 p-3 rounded-lg transition font-semibold">
                 <i class="ri-car-line text-xl"></i>
                 <span>Cars</span>
             </a>
-            <a href="{{ route('About') }}" class="flex items-center gap-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 p-3 rounded-lg transition font-semibold">
+            <a href="{{ route('About') }}" class="flex items-center gap-3 {{ request()->routeIs('About') ? 'text-blue-600 bg-blue-50' : 'text-gray-700' }} hover:text-blue-600 hover:bg-blue-50 p-3 rounded-lg transition font-semibold">
                 <i class="ri-information-line text-xl"></i>
                 <span>About Us</span>
             </a>
-            <a href="{{ route('Contact') }}" class="flex items-center gap-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 p-3 rounded-lg transition font-semibold">
+            <a href="{{ route('Contact') }}" class="flex items-center gap-3 {{ request()->routeIs('Contact') ? 'text-blue-600 bg-blue-50' : 'text-gray-700' }} hover:text-blue-600 hover:bg-blue-50 p-3 rounded-lg transition font-semibold">
                 <i class="ri-phone-line text-xl"></i>
                 <span>Contact</span>
             </a>

@@ -262,36 +262,18 @@
 
                 <!-- Map -->
                 <div class="rounded-2xl overflow-hidden shadow-2xl border border-gray-100">
-                    <div id="map" class="w-full h-80 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                        <div class="text-center">
-                            <svg class="w-16 h-16 text-gray-400 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                            </svg>
-                            <p class="text-gray-500 font-semibold">Map Integration</p>
-                            <p class="text-sm text-gray-400">123, Chitwan, Nepal</p>
-                        </div>
-                    </div>
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28201.123456789!2d84.1062!3d27.6447!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3994615e6a9c2c93%3A0x8a1e573cc6c8c8c8!2sKawasoti%2C%20Nepal!5e0!3m2!1sen!2s!4v1234567890123!5m2!1sen!2s" 
+                        width="100%" 
+                        height="320" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade"
+                        class="w-full h-80">
+                    </iframe>
                 </div>
 
-                <!-- Business Hours -->
-                <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
-                    <h3 class="text-xl font-extrabold text-gray-900 mb-4">Business Hours</h3>
-                    <div class="space-y-3">
-                        <div class="flex justify-between items-center py-2 border-b border-gray-100">
-                            <span class="text-gray-600 font-semibold">Monday - Friday</span>
-                            <span class="text-gray-900 font-bold">9:00 AM - 6:00 PM</span>
-                        </div>
-                        <div class="flex justify-between items-center py-2 border-b border-gray-100">
-                            <span class="text-gray-600 font-semibold">Saturday</span>
-                            <span class="text-gray-900 font-bold">10:00 AM - 4:00 PM</span>
-                        </div>
-                        <div class="flex justify-between items-center py-2">
-                            <span class="text-gray-600 font-semibold">Sunday</span>
-                            <span class="text-red-600 font-bold">Closed</span>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
