@@ -42,7 +42,7 @@ class PageController extends Controller
 public function search(Request $request)
 {
     $qry=$request->qry;
-    $vehicles= Vehicle::where('name','like' ,'%'.$qry.'%')->get();
+    $vehicles= Vehicle::where('brand','like' ,'%'.$qry.'%')->get();
     return view('search ',compact('vehicles','qry'));
 }
 

@@ -27,8 +27,6 @@ class BookingController extends Controller
             'phone' => 'required|string|max:15',
             'address' => 'required|string|max:255',
          
-  
-
         ]);  
         //$data['days'] = ----- ;
 
@@ -92,16 +90,21 @@ class BookingController extends Controller
 
             $vehicle = Vehicle::find($bookings->vehicle_id);
 
-            $emaildata = [
-                'name' => $bookings->user ? $bookings->user->name : 'Guest',
-                'status' => $status,
-                'vehicles' => $vehicle,
-                'booking' => $bookings,
-            ];
+            // Try to send email, but don't fail if it doesn't work
+            try {
+                $emaildata = [
+                    'name' => $bookings->user ? $bookings->user->name : 'Guest',
+                    'status' => $status,
+                    'vehicles' => $vehicle,
+                    'booking' => $bookings,
+                ];
 
-            Mail::send('bookingemail', $emaildata, function ($message) use ($bookings) {
-                $message->to($bookings->user->email, $bookings->user->name)->subject('Booking Notification');
-            });
+                Mail::send('bookingemail', $emaildata, function ($message) use ($bookings) {
+                    $message->to($bookings->user->email, $bookings->user->name)->subject('Booking Notification');
+                });
+            } catch (\Exception $e) {
+                \Illuminate\Support\Facades\Log::warning('Failed to send booking notification email: ' . $e->getMessage());
+            }
 
             return back()->with('success', 'Booking is now ' . $status);
         }
@@ -111,6 +114,7 @@ class BookingController extends Controller
 
     public function storeEsewa(Request $request, $bookmarkid)
     {
+        
         // Validate the request
         $data = $request->data;
         $data = base64_decode($data);
@@ -127,7 +131,7 @@ class BookingController extends Controller
             $booking = new Bookings();
             $booking->vehicle_id = $bookmark->vehicle_id;
             $booking->days = $bookmark->days;
-            $booking->Price_Per_Day = $bookmark->Price_Per_Day;
+            $booking->Price_Per_Day = $bookmark->vehicle->Price_Per_Day;
             $booking->payment_method = "eSewa";
             $booking->name = $bookmark->user->name ?? 'Guest';
             $booking->phone = 'N/A';
@@ -141,14 +145,22 @@ class BookingController extends Controller
 
             $bookmark->delete();
 
-            $emaildata = [
-                'name' => $booking->user ? $booking->user->name : 'Guest',
-                'status' => $status,
-            ];
+            // Try to send email, but don't fail if it doesn't work
+            try {
+                $emaildata = [
+                    'name' => $booking->user ? $booking->user->name : 'Guest',
+                    'status' => $status,
+                    'vehicles' => $booking->vehicle->name,
+                    'price' => $booking->Price_Per_Day,
+                    'payment_method' => $booking->payment_method,
+                ];
 
-            Mail::send('bookingemail', $emaildata, function ($message) use ($booking) {
-                $message->to($booking->user->email, $booking->user->name)->subject('Booking Notification');
-            });
+                Mail::send('bookingemail', $emaildata, function ($message) use ($booking) {
+                    $message->to($booking->user->email, $booking->user->name)->subject('Booking Notification');
+                });
+            } catch (\Exception $e) {
+                \Illuminate\Support\Facades\Log::warning('Failed to send booking email: ' . $e->getMessage());
+            }
 
             return redirect('/')->with('success', 'Booking has been placed successfully');
         }
@@ -181,26 +193,31 @@ class BookingController extends Controller
         $diffInDays = $bookingDate->diffInDays($currentDate);
 
         if ($diffInDays <= 2) {
-            // Send cancellation email before deleting the Bookings
-            $emaildata = [
-                'name' => $Bookings->user->name,
-                'status' => 'Cancelled',
-                'Bookings' => $Bookings,
-                'vehicle' => $Bookings->vehicle,
-                'payment_method' => $Bookings->payment_method,
-            ];
+            // Try to send cancellation email, but don't fail if it doesn't work
+            try {
+                $emaildata = [
+                    'name' => $Bookings->user->name,
+                    'status' => 'Cancelled',
+                    'Bookings' => $Bookings,
+                    'vehicle' => $Bookings->vehicle,
+                    'payment_method' => $Bookings->payment_method,
+                ];
 
-            Mail::send('emails.cancelorderemail', $emaildata, function ($message) use ($Bookings) {
-                $message->to($Bookings->user->email, $Bookings->user->name)
-                    ->subject('Booking Cancellation');
-            });
+                Mail::send('cancelorderemail', $emaildata, function ($message) use ($Bookings) {
+                    $message->to($Bookings->user->email, $Bookings->user->name)
+                        ->subject('Booking Cancellation');
+                });
+            } catch (\Exception $e) {
+                // Log the error but continue with cancellation
+                \Illuminate\Support\Facades\Log::warning('Failed to send cancellation email: ' . $e->getMessage());
+            }
 
             // Delete the Bookings from the orders table
             $Bookings->delete();
 
-            return redirect()->route('historyindex')->with('success', 'Your booking has been cancelled.');
+            return redirect()->route('historyindex')->with('success', 'Your booking has been cancelled successfully.');
         } else {
-            return redirect()->route('historyindex')->with('error', 'You can only cancel the booking within 6 days of placing the Bookings.');
+            return redirect()->route('historyindex')->with('error', 'You can only cancel the booking within 2 days of placing the booking.');
         }
     }
     

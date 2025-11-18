@@ -52,8 +52,6 @@ private function bubbleSort($vehicles)
             'status'=>'required|string',
             'description'=>'required|string',
             'type'=>'required|string',
-
-
           ]);
          
           $photoname=time().'.'.$request->photopath->extension();

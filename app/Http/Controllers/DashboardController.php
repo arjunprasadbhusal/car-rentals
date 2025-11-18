@@ -33,8 +33,6 @@ public function index()
 
     return view('dashboard',compact('totalvehicle','totalbooking','totalusers','completedbooking','pendingbooking','totalcancel','allvehicle','bookings','totalreviews'));
 }
-
-
 }
 
 

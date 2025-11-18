@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
@@ -51,7 +52,13 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
+        $emaildata = [
+            'name' => $user->name,
+        ];
+        Mail::send('welcomeemail', $emaildata, function ($message) use ($user) {
+            $message->to($user->email, $user->name)->subject('Welcome Notification');
+        });
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('dashboard', absolute: false))->with('success', 'Registration successful! Welcome to our platform.');
     }
 }

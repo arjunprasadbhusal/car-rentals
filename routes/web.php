@@ -40,15 +40,10 @@ Route::delete('/review/{id}/destroy', [ReviewController::class, 'destroy'])->nam
 Route::get('/userprofile/edit', [UserProfileController::class, 'edit'])->name('userprofile.edit');
 Route::post('/userprofile/update', [UserProfileController::class, 'update'])->name('userprofile.update');
 
-Route::get('/history', [BookingController::class, 'userHistory'])->name('historyindex');
-Route::post('/bookings/{bookingid}/cancel', [BookingController::class, 'cancel'])->name('bookings.cancel');
-
-
-
 Route::post('bookings/store',[BookingController::class,'store'])->name('bookings.store');
 Route::get('/bookings',[BookingController::class,'index'])->name('bookings.index');
 Route::get('/bookings/{id}/{status}',[BookingController::class,'status'])->name('bookings.status');
-Route::get('bookings/{bookmarkid}/storeEsewa',[BookingController::class,'storeEsewa'])->name('bookings.storeEsewa');
+Route::get('bookings/store/{bookmarkid}/storeEsewa',[BookingController::class,'storeEsewa'])->name('bookings.storeEsewa');
 
 });
 Route::get('/vehicle',[VehicleController::class,'index'])->name('vehicle.index');
@@ -62,9 +57,8 @@ Route::get('/viewvehicle/{id}',[PageController::class,'viewvehicle'])->name('vie
 Route::get('/search', [PageController::class, 'search'])->name('search');
 
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
-
-
-
+Route::get('/history', [BookingController::class, 'userHistory'])->name('historyindex');
+Route::post('/booking/cancel/{id}', [BookingController::class, 'cancel'])->name('booking.cancel');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

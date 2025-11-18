@@ -31,7 +31,7 @@
                 <h2 class="text-2xl font-bold text-gray-900 truncate">{{ $vehicle->Name }}</h2>
                 <p class="text-base text-gray-800"><strong>Model:</strong> {{ $vehicle->Model }}</p>
                 <p class="text-base text-gray-800"><strong>Brand:</strong> {{ $vehicle->Brand }}</p>
-                <p class="text-base text-gray-800"><strong>Price Per Day:</strong> ${{ number_format($vehicle->Price_Per_Day, 2) }}</p>
+                <p class="text-base text-gray-800"><strong>Price Per Day:</strong> Rs{{ number_format($vehicle->Price_Per_Day, 2) }}</p>
                 <p class="text-base text-gray-800"><strong>Description:</strong> {{ $vehicle->description }}</p>
                 <p class="text-base text-gray-800"><strong>Number Plate:</strong> {{ $vehicle->number_plate }}</p>
             </div>
